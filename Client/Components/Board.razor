@@ -3,12 +3,31 @@
 <h3>Board</h3>
 <div id="container-board">
     <canvas @ref="CanvasRef" height="500" width="500" style="border:1px solid #000000;" id="canvas" @onclick="CreatePaintableCanvas"></canvas>
-    <div id="controls-board">
+    <span id="thing-to-draw">An elephant</span>
+
+
+    <div class="btn-group" id="controls-board-brushsize">
         <button class="btn btn-primary" id="js-edit-two" @onclick="SetBrushSizeTwo">Brush size 2</button>
-        <button class="btn btn-danger" id="js-edit-five" @onclick="SetBrushSizeFive">Brush size 5</button>
-        <button class="btn btn-secondary" id="js-edit-ten" @onclick="SetBrushSizeTen">Brush size 10</button>
+        <button class="btn btn-success" id="js-edit-five" @onclick="SetBrushSizeFive">Brush size 5</button>
+        <button class="btn btn-danger" id="js-edit-ten" @onclick="SetBrushSizeTen">Brush size 10</button>
+    </div>
+    <div class="btn-group" id="controls-board-brushcolor">
+        <button class="btn btn-danger" id="js-edit-red" @onclick="SetBrushColorRed">Brush color Red</button>
+        <button class="btn btn-primary" id="js-edit-blue" @onclick="SetBrushColorBlue">Brush color Blue</button>
+        <button class="btn btn-success" id="js-edit-green" @onclick="SetBrushColorGreen">Brush color Green</button>
+        <button class="btn btn-dark" id="js-edit-black" @onclick="SetBrushColorBlack">Brush color Black</button>
+        <button class="btn btn-warning" id="js-edit-yellow" @onclick="SetBrushColorYellow">Brush color Yellow</button>
+        <button class="btn btn-secondary" id="js-edit-grey" @onclick="SetBrushColorGrey">Brush color Grey</button>
+    </div>
+    <div class="input-group input-group-sm mb-3 answer">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Answer:</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Answer" aria-describedby="inputGroup-sizing-sm">
     </div>
 </div>
+
+
 
 @code {
 
@@ -32,6 +51,36 @@
     async Task SetBrushSizeTen()
     {
         await JsRuntime.InvokeVoidAsync("setBrushSizeTen");
+    }
+
+    async Task SetBrushColorRed()
+    {
+        await JsRuntime.InvokeVoidAsync("setBrushColorRed");
+    }
+
+    async Task SetBrushColorBlue()
+    {
+        await JsRuntime.InvokeVoidAsync("setBrushColorBlue");
+    }
+
+    async Task SetBrushColorGreen()
+    {
+        await JsRuntime.InvokeVoidAsync("setBrushColorGreen");
+    }
+
+    async Task SetBrushColorBlack()
+    {
+        await JsRuntime.InvokeVoidAsync("setBrushColorBlack");
+    }
+
+    async Task SetBrushColorYellow()
+    {
+        await JsRuntime.InvokeVoidAsync("setBrushColorYellow");
+    }
+
+    async Task SetBrushColorGrey()
+    {
+        await JsRuntime.InvokeVoidAsync("setBrushColorGrey");
     }
 
 }

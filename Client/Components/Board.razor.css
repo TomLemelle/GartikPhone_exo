@@ -1,4 +1,5 @@
 ﻿#container-board {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: auto;
@@ -10,9 +11,33 @@
     height: 100%;
 }
 
-#controls-board {
+#thing-to-draw {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50px;
     width: 100%;
+    font-size: 16px;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+#controls-board-brushsize, #controls-board-brushcolor {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn {
+    width: 25%;
+}
+
+.answer {
+    margin-top: 10px;
 }
