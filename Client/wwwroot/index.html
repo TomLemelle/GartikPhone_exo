@@ -22,6 +22,17 @@
     <script src="_framework/blazor.webassembly.js"></script>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js'></script>
     <script src="js/interop.js"></script>
+    <environment include="Development">
+        <script>
+            //For Hot Reload
+            //dotnet watch run debug
+            window.Blazor.defaultReconnectionHandler.onConnectionDown = function () {
+                setTimeout(function () {
+                    location.reload();
+                }, 5000);
+            };
+        </script>
+    </environment>
 
 </body>
 
