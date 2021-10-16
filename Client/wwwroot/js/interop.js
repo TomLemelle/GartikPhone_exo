@@ -26,6 +26,13 @@ function setBrushSizeTen() {
     })
 }
 
+function setBrushSizeTwenty() {
+    document.getElementById('js-edit-twenty').addEventListener('click', () => {
+        canvas.freeDrawingBrush.width = 20;
+    })
+}
+
+
 function setBrushColorRed() {
     document.getElementById('js-edit-red').addEventListener('click', () => {
         canvas.freeDrawingBrush.color = "#C82333";
