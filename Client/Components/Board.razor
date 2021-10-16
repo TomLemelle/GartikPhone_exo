@@ -1,21 +1,37 @@
-﻿@using Blazor.Extensions.Canvas.WebGL
-<h3>Board</h3>
+﻿@inject IJSRuntime JsRuntime
 
-<BECanvas Width="300" Height="400" @ref="_canvasReference"></BECanvas>
+<h3>Board</h3>
+<div id="container-board">
+    <canvas @ref="CanvasRef" height="500" width="500" style="border:1px solid #000000;" id="canvas" @onclick="CreatePaintableCanvas"></canvas>
+    <div id="controls-board">
+        <button class="btn btn-primary" id="js-edit-two" @onclick="SetBrushSizeTwo">Brush size 2</button>
+        <button class="btn btn-danger" id="js-edit-five" @onclick="SetBrushSizeFive">Brush size 5</button>
+        <button class="btn btn-secondary" id="js-edit-ten" @onclick="SetBrushSizeTen">Brush size 10</button>
+    </div>
+</div>
 
 @code {
-    private Canvas2DContext _context;
 
-    protected BECanvasComponent _canvasReference;
+    ElementReference CanvasRef;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    async Task CreatePaintableCanvas()
     {
-        this._context = await this._canvasReference.CreateCanvas2DAsync();
-        await this._context.SetFillStyleAsync("green");
-
-        await this._context.FillRectAsync(10, 100, 100, 100);
-
-        await this._context.SetFontAsync("48px serif");
-        await this._context.StrokeTextAsync("Hello Blazor!!!", 10, 100);
+        await JsRuntime.InvokeVoidAsync("createPaintableCanvas", CanvasRef);
     }
+
+    async Task SetBrushSizeTwo()
+    {
+        await JsRuntime.InvokeVoidAsync("setBrushSizeTwo");
+    }
+
+    async Task SetBrushSizeFive()
+    {
+        await JsRuntime.InvokeVoidAsync("setBrushSizeFive");
+    }
+
+    async Task SetBrushSizeTen()
+    {
+        await JsRuntime.InvokeVoidAsync("setBrushSizeTen");
+    }
+
 }
