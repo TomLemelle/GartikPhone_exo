@@ -68,3 +68,14 @@ function setBrushColorGrey() {
         canvas.freeDrawingBrush.color = "#6C757D";
     })
 }
+
+window.clipboardCopy = {
+    copyText: function (text) {
+        navigator.clipboard.writeText(text).then(function () {
+            alert("Copied to clipboard!");
+        })
+            .catch(function (error) {
+                alert(error);
+            });
+    }
+};

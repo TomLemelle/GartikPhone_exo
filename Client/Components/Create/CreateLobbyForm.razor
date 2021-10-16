@@ -1,5 +1,7 @@
-﻿<div class="card card-body">
-    <form action="/play">
+﻿@inject IJSRuntime JsRuntime
+
+<div class="card card-body">
+    <form>
         <div class="form-group">
             <label for="nickname">Your nickname</label>
             <input type="text" class="form-control" id="nickname" placeholder="Ethiiox...">
@@ -14,10 +16,42 @@
                 <option>5</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary mb-2">Create room</button>
+        <div class="form-group">
+            <label for="code">Copy your code below</label><br/>
+            <p type="button" style="color: #0069D9" @onclick="CopyTextToClipboard">@Code</p>
+        </div>
+        <NavLink class="btn btn-primary" href="@Code" Match="NavLinkMatch.All">Create room</NavLink>
     </form>
 </div>
 
 @code {
 
+    private const int DefaultNumberOfCharacters = 8;
+    private const int DefaultExpireDays = 10;
+    private static readonly string AllowedCharacters = "abcdfghjklmnpqrstvxz0123456789";
+    public string Code;
+
+    public string CreateRandomRoomId(int numberOfCharacters)
+    {
+        const int from = 0;
+        int to = AllowedCharacters.Length;
+        Random r = new Random();
+
+        StringBuilder qs = new StringBuilder();
+        for (int i = 0; i < numberOfCharacters; i++)
+        {
+            qs.Append(AllowedCharacters.Substring(r.Next(from, to), 1));
+        }
+        return "/play?" + qs.ToString();
+    }
+
+    protected override void OnInitialized()
+    {
+        Code = CreateRandomRoomId(20);
+    }
+
+    async Task CopyTextToClipboard()
+    {
+        await JsRuntime.InvokeVoidAsync("clipboardCopy.copyText", Code);
+    }
 }
