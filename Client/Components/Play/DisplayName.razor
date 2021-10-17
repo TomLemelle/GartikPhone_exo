@@ -1,0 +1,14 @@
+﻿@inject Blazored.LocalStorage.ISyncLocalStorageService localStorage
+
+<h3>Welcome @Username</h3>
+
+@code {
+
+    private string Username;
+
+    protected override void OnInitialized()
+    {
+        Username = localStorage.GetItem<string>("username");
+    }
+
+}

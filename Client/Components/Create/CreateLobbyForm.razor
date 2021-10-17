@@ -1,5 +1,6 @@
 ﻿@inject IJSRuntime JsRuntime
 @inject NavigationManager NavManager
+@inject Blazored.LocalStorage.ISyncLocalStorageService localStorage
 
 <div class="card card-body">
     <EditForm Model="@Lobby" OnValidSubmit="RedirectToRoom">
@@ -62,6 +63,7 @@
 
     public void RedirectToRoom()
     {
+        localStorage.SetItem("username", Lobby.Username);
         NavManager.NavigateTo(Code);
     }
 }
