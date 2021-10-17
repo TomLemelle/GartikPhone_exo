@@ -9,7 +9,7 @@ namespace GartikPhone.Client.Components.Create
     {
         [Required]
         [StringLength(10, ErrorMessage = "Name is too long")]
-        public string Nickname { get; set; }
+        public string Username { get; set; }
         public string Round { get; set; }
         public string RoomId { get; set; }
     }

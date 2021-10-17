@@ -1,16 +1,26 @@
-﻿<div class="card card-body">
-    <form action="/play">
+﻿@inject NavigationManager NavManager
+
+<div class="card card-body">
+    <EditForm Model="@Lobby" OnValidSubmit="RedirectToRoom">
+        <div class="form-group">
+            <label for="username">Your username</label>
+            <InputText type="text" @bind-Value="Lobby.Username" class="form-control" id="username" placeholder="Enter your code here..." />
+        </div>
         <div class="form-group">
             <label for="code">The code</label>
-            <input type="text" class="form-control" id="nickname" placeholder="Enter your code here...">
+            <input type="text" class="form-control" id="code" placeholder="Enter your code here..." @bind="@Code">
         </div>
         <button type="submit" class="btn btn-primary mb-2">Join the room</button>
-        <NavLink class="btn btn-primary" href="" Match="NavLinkMatch.All">Join the room</NavLink>
-
-    </form>
+    </EditForm>
 
 </div>
 
 @code {
+    private CreateLobby Lobby = new();
+    private string Code { get; set; }
 
+    public void RedirectToRoom()
+    {
+        NavManager.NavigateTo(Code);
+    }
 }
