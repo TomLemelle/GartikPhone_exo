@@ -1,10 +1,13 @@
 ﻿@inject IJSRuntime JsRuntime
+@inject NavigationManager NavManager
 
 <div class="card card-body">
-    <form>
+    <EditForm Model="@Lobby" OnValidSubmit="RedirectToRoom">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
         <div class="form-group">
             <label for="nickname">Your nickname</label>
-            <input type="text" class="form-control" id="nickname" placeholder="Ethiiox...">
+            <InputText type="text" class="form-control" id="nickname" @bind-Value="Lobby.Nickname" placeholder="Ethiiox..." />
         </div>
         <div class="form-group">
             <label for="rounds">Rounds</label>
@@ -17,19 +20,26 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="code">Copy your code below</label><br/>
+            <label for="code">Copy your code below</label><br />
             <p type="button" style="color: #0069D9" @onclick="CopyTextToClipboard">@Code</p>
         </div>
-        <NavLink class="btn btn-primary" href="@Code" Match="NavLinkMatch.All">Create room</NavLink>
-    </form>
+        <button type="submit" class="btn btn-primary">Create room</button>
+    </EditForm>
 </div>
 
 @code {
+
+    private CreateLobby Lobby = new();
 
     private const int DefaultNumberOfCharacters = 8;
     private const int DefaultExpireDays = 10;
     private static readonly string AllowedCharacters = "abcdfghjklmnpqrstvxz0123456789";
     public string Code;
+
+    protected override void OnInitialized()
+    {
+        Code = CreateRandomRoomId(20);
+    }
 
     public string CreateRandomRoomId(int numberOfCharacters)
     {
@@ -45,13 +55,13 @@
         return "/play?" + qs.ToString();
     }
 
-    protected override void OnInitialized()
-    {
-        Code = CreateRandomRoomId(20);
-    }
-
     async Task CopyTextToClipboard()
     {
         await JsRuntime.InvokeVoidAsync("clipboardCopy.copyText", Code);
+    }
+
+    public void RedirectToRoom()
+    {
+        NavManager.NavigateTo(Code);
     }
 }
